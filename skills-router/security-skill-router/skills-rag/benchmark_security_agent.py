@@ -14,7 +14,7 @@ import sys
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import context_handoff
-import local_rag
+import skills_rag
 
 CASES = [
     ("A-Splunk-BruteForce", "Investigate brute-force authentication activity in Splunk.", {"platform": "splunk", "task": "security_alert_triage", "skill": "splunk-security-alert-triage", "query_language": "SPL", "mcp": "splunk-mcp-server", "mcp_status": "VERIFIED"}),
@@ -29,7 +29,7 @@ def run_case(name, request, decision, repeats=5):
     for _ in range(repeats):
         start = time.perf_counter_ns()
         rag_start = time.perf_counter_ns()
-        rag = local_rag.search(request, decision=decision)
+        rag = skills_rag.search(request, decision=decision)
         rag_ms = (time.perf_counter_ns() - rag_start) / 1e6
         context_start = time.perf_counter_ns()
         envelope = context_handoff.build_context(request, decision, rag)

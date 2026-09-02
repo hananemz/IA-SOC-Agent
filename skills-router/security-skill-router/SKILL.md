@@ -17,7 +17,7 @@ Use this skill as the platform gate for every in-scope security request.
 6. Verify the selected skill path and `SKILL.md` exist.
 7. Verify required dependencies. Splunk Enterprise Security, MLTK, and Dashboard Studio are `NOT VERIFIED`.
 8. Select only the corresponding MCP server in `mcp-routing.yaml` and verify the required capability is listed.
-9. Optionally retrieve local supporting evidence from `local-rag`. Retrieval is advisory and must not override platform detection, the registry, schema verification, or MCP gates.
+9. Optionally retrieve local supporting evidence from `skills-rag`. Retrieval is advisory and must not override platform detection, the registry, schema verification, or MCP gates.
 10. Execute only after all required gates pass. A tool failure is `NOT VERIFIED`; an empty verified result is `NO_RESULTS_FOUND`.
 
 ## Platform gates
@@ -42,13 +42,13 @@ Do not expose chain-of-thought. Read `ROUTING.md` for detailed mappings and cros
 
 ## Local retrieval
 
-`local-rag/local_rag.py` provides deterministic, offline retrieval over curated
+`skills-rag/skills_rag.py` provides deterministic, offline retrieval over curated
 operational knowledge after the Agent/Skills decision. It does not discover,
-select, or load skills. `local-rag/soc_rag.py` is a separate
+select, or load skills. `skills-rag/soc_rag.py` is a separate
 provider-independent retriever for attributed SOC reasoning guidance. Skills
 RAG is technical HOW-TO; SOC Analyst RAG is security WHAT/WHY; MCP output is
 the only observed evidence. Neither RAG is an authority over platform routing,
-schemas, capabilities, or live evidence. Run `py local_rag.py index` and
+schemas, capabilities, or live evidence. Run `py skills_rag.py index` and
 `py soc_rag.py index` after source changes.
 after changing indexed artifacts.
 

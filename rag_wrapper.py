@@ -1,6 +1,6 @@
-﻿import sys, json, argparse
+import sys, json, argparse
 
-sys.path.insert(0, r'C:\Users\lenovo\.agents\skills-router\security-skill-router\local-rag')
+sys.path.insert(0, r'C:\Users\lenovo\.agents\skills-router\security-skill-router\skills-rag')
 
 def main():
     parser = argparse.ArgumentParser()
@@ -15,11 +15,11 @@ def main():
         import soc_rag
         result = soc_rag.search(args.query, top_k=args.top_k or 6)
     else:
-        import local_rag
+        import skills_rag
         decision = {'platform': args.platform}
         if args.skill:
             decision['skill'] = args.skill
-        result = local_rag.search(args.query, top_k=args.top_k, decision=decision)
+        result = skills_rag.search(args.query, top_k=args.top_k, decision=decision)
     print(json.dumps(result, ensure_ascii=False))
 
 if __name__ == '__main__':

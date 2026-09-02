@@ -1,16 +1,16 @@
-# Sekera Agent SOC — Codex CLI, MCP, Skills, RAG et frontend
+# IA SOC Agent — Codex CLI, MCP, Skills, RAG et frontend
 
-Dépôt monorepo du prototype opérationnel **Sekera Agent SOC** :
+Dépôt monorepo du prototype opérationnel **IA SOC Agent** :
 
 - `skills-router/security-skill-router/` — routeur déterministe Elastic/Splunk,
   registre des skills, règles MCP et tests de routage.
 - `skills/` — skills Elastic/Kibana/Observability/Security.
 - `skills-splunk/` — skills Splunk et SOC.
-- `skills-router/security-skill-router/local-rag/` — RAG opérationnel et SOC,
+- `skills-router/security-skill-router/skills-rag/` — RAG opérationnel et SOC,
   corpus, indexeurs, handoff de contexte, recommandations et validation des
   preuves.
 - `socmate-backend/` — API locale qui relie le frontend au routeur et aux RAG.
-- `socmate-frontend/` — frontend Next.js **Sekera Agent SOC** avec chat,
+- `ia-soc-frontend/` — frontend Next.js **IA SOC Agent** avec chat,
   alertes, tickets, evidence & validation, review queue et feedback loop.
 
 ## Architecture de confiance
@@ -30,10 +30,10 @@ cd .\socmate-backend
 .\start.ps1
 ```
 
-### Frontend Sekera Agent SOC
+### Frontend IA SOC Agent
 
 ```powershell
-cd .\socmate-frontend
+cd .\ia-soc-frontend
 npm.cmd install
 npm.cmd run dev
 ```
@@ -42,13 +42,13 @@ Puis ouvrir `http://localhost:3000` ou `http://localhost:3000/chat`.
 
 ## Validation
 
-Depuis `skills-router/security-skill-router/local-rag` :
+Depuis `skills-router/security-skill-router/skills-rag` :
 
 ```powershell
-py .\local_rag.py index
+py .\skills_rag.py index
 py .\soc_rag.py index
 py .\validate_soc_rag.py
-py -m unittest .\test_soc_rag.py .\test_local_rag.py .\test_evidence_validation.py .\test_context_handoff.py -v
+py -m unittest .\test_soc_rag.py .\test_skills_rag.py .\test_evidence_validation.py .\test_context_handoff.py -v
 ```
 
 Le projet ne contient pas de secrets ni de résultats MCP réels. Les
@@ -64,6 +64,6 @@ vérifier le remote, le nom du compte et la branche par défaut :
 git remote add origin https://github.com/<compte>/<depot>.git
 git branch -M main
 git add .
-git commit -m "chore: publish Sekera Agent SOC platform"
+git commit -m "chore: publish IA SOC Agent platform"
 git push -u origin main
 ```

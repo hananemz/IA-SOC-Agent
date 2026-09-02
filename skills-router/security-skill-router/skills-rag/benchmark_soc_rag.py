@@ -10,7 +10,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import context_handoff
-import local_rag
+import skills_rag
 import soc_rag
 
 CASES = [
@@ -39,7 +39,7 @@ def run(repeats=5):
             retrieval_start = time.perf_counter_ns()
             soc = soc_rag.search(request, index=index)
             retrieval_ms = (time.perf_counter_ns() - retrieval_start) / 1e6
-            operational = local_rag.search(request, decision=decision)
+            operational = skills_rag.search(request, decision=decision)
             context_start = time.perf_counter_ns()
             envelope = context_handoff.build_context(request, decision, operational, soc_result=soc)
             context_ms = (time.perf_counter_ns() - context_start) / 1e6

@@ -37,7 +37,7 @@ export default function AgentChatPanel({ isOpen, onClose, ticketContextId, fullP
       sender: 'agent',
       text: ticketContextId
         ? `Hello! I am the SOC Analyst Agent overseeing incident ${ticketContextId}. Ask me to query Splunk or Elastic.`
-        : `Hello! I am the SOC Analyst Agent connected to the Sekera SOC pipeline. Ask me anything (e.g. 'give me the last critical alert sous elastic').`,
+        : `Hello! I am the SOC Analyst Agent connected to the IA SOC pipeline. Ask me anything (e.g. 'give me the last critical alert sous elastic').`,
       timestamp: 'Just now',
       activities: []
     }

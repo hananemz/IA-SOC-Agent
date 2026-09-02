@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Shield, Lock, Mail, ArrowRight, Bot } from 'lucide-react';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('alex.mercer@sekera.ai');
+  const [email, setEmail] = useState('alex.mercer@iasoc.ai');
   const [password, setPassword] = useState('********');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,21 +26,21 @@ export default function LoginPage() {
 
       if (!res.ok) {
         // Fallback for demo when backend auth route isn't running yet
-        localStorage.setItem('sekera_auth_token', 'mock_token_sekera_12345');
-        document.cookie = 'sekera_auth_token=mock_token_sekera_12345; path=/; max-age=86400';
+        localStorage.setItem('ia_soc_auth_token', 'mock_token_ia_soc_12345');
+        document.cookie = 'ia_soc_auth_token=mock_token_ia_soc_12345; path=/; max-age=86400';
         router.push('/');
         return;
       }
 
       const data = await res.json();
-      const token = data.token || 'mock_token_sekera_12345';
-      localStorage.setItem('sekera_auth_token', token);
-      document.cookie = `sekera_auth_token=${token}; path=/; max-age=86400`;
+      const token = data.token || 'mock_token_ia_soc_12345';
+      localStorage.setItem('ia_soc_auth_token', token);
+      document.cookie = `ia_soc_auth_token=${token}; path=/; max-age=86400`;
       router.push('/');
     } catch {
       // Offline fallback login success for testing
-      localStorage.setItem('sekera_auth_token', 'mock_token_sekera_12345');
-      document.cookie = 'sekera_auth_token=mock_token_sekera_12345; path=/; max-age=86400';
+      localStorage.setItem('ia_soc_auth_token', 'mock_token_ia_soc_12345');
+      document.cookie = 'ia_soc_auth_token=mock_token_ia_soc_12345; path=/; max-age=86400';
       router.push('/');
     } finally {
       setLoading(false);
@@ -56,7 +56,7 @@ export default function LoginPage() {
           </div>
           <div>
             <h1 className="text-2xl font-black tracking-wider bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent">
-              Sekera Services
+              IA SOC Agent
             </h1>
             <p className="text-xs text-purple-400 font-semibold tracking-widest uppercase mt-1">
               SOC IA Agent Platform

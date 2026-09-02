@@ -70,7 +70,7 @@ export default function Sidebar({
           {!collapsed && (
             <div className="flex flex-col">
               <span className="font-black text-lg tracking-wider bg-gradient-to-r from-white via-purple-200 to-purple-400 bg-clip-text text-transparent truncate">
-                Sekera Services
+                IA SOC Agent
               </span>
               <span className="text-[10px] text-purple-400/80 tracking-widest uppercase font-semibold">
                 SOC IA Agent

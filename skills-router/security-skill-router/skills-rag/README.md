@@ -1,9 +1,9 @@
-# Local RAG layer
+# Skills RAG layer
 
 This is an offline retrieval layer for the Security Skill Router. It contains
 two separate retrievers:
 
-- `local_rag.py`: Operational Knowledge RAG for complementary investigation
+- `skills_rag.py`: Operational Knowledge RAG for complementary investigation
   patterns, troubleshooting, query examples, playbooks, and pitfalls.
 - `soc_rag.py`: the SOC Analyst RAG for security reasoning and investigation
   guidance.
@@ -16,8 +16,8 @@ extension described below; it never supplies MCP evidence or selects a platform.
 From this directory:
 
 ```powershell
-py .\local_rag.py index
-py .\local_rag.py search "suspicious PowerShell execution" --platform elastic --skill security-alert-triage
+py .\skills_rag.py index
+py .\skills_rag.py search "suspicious PowerShell execution" --platform elastic --skill security-alert-triage
 py .\soc_rag.py index
 py .\soc_rag.py search "Investigate suspicious PowerShell execution"
 ```
@@ -119,7 +119,7 @@ Rebuild and validate after changes:
 ```powershell
 py .\soc_rag.py index
 py .\validate_soc_rag.py
-py -m unittest .\test_soc_rag.py .\test_local_rag.py
+py -m unittest .\test_soc_rag.py .\test_skills_rag.py
 ```
 
 The generated `.rag/soc-index.json` contains document and chunk counts.

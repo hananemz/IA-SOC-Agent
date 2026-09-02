@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 SOC Architecture End-to-End Benchmark
 Pipeline: USER -> ROUTER -> SKILLS -> SOC RAG -> MCP -> SPLUNK/ELASTIC -> ANSWER
@@ -19,12 +19,12 @@ WORKSPACE = Path(os.getcwd())
 ROUTER_DIR = Path(r"C:\Users\lenovo\.agents\skills-router\security-skill-router")
 SKILLS_DIR = Path(r"C:\Users\lenovo\.agents\skills")
 SKILLS_SPLUNK_DIR = Path(r"C:\Users\lenovo\.agents\skills-splunk")
-SOC_RAG_DIR = ROUTER_DIR / "local-rag"
+SOC_RAG_DIR = ROUTER_DIR / "skills-rag"
 REPEATS = 5
 
-# Import local RAG after setting up the path
+# Import Skills RAG after setting up the path
 sys.path.insert(0, str(SOC_RAG_DIR))
-import local_rag
+import skills_rag
 import soc_rag
 
 def now_ms():
@@ -241,10 +241,10 @@ def benchmark_soc_rag(query):
     }
 
 def benchmark_skills_rag(query, decision):
-    \"\"\"Stage 3b: Skills RAG - local_rag.py (real Python call)\"\"\"
+    \"\"\"Stage 3b: Skills RAG - skills_rag.py (real Python call)\"\"\"
     t0 = now_ms()
     try:
-        result = local_rag.search(query, decision=decision)
+        result = skills_rag.search(query, decision=decision)
     except Exception as e:
         result = {\"status\": \"ERROR\", \"error\": str(e), \"results\": []}
     t1 = now_ms()

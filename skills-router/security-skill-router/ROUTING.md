@@ -29,9 +29,9 @@ Use cross-platform mode only for an explicit Elastic + Splunk comparison, correl
 
 Read-only verification precedes mutations. Mutating work requires explicit confirmation. A Splunk detection-rule request requires Enterprise Security verification; with the current `NOT VERIFIED` dependency status, return `NOT VERIFIED` and do not claim creation. Alert and case identifiers are candidates until verified.
 
-## Local RAG boundary
+## Skills RAG boundary
 
-The optional local RAG layer is a retrieval aid over local router and skill
+The optional Skills RAG layer is a retrieval aid over local router and skill
 files. It runs after deterministic platform/task routing and returns
 `rag_status: LOCAL_OPTIONAL` plus local source references when used. The
 separate SOC Analyst RAG supplies provider-independent security reasoning and

@@ -8,7 +8,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "dashboard"))
 import context_handoff
-import local_rag
+import skills_rag
 import soc_rag
 from services.qwen import QwenProvider
 
@@ -24,7 +24,7 @@ def run():
     for name, query, decision, expected in CASES:
         soc = soc_rag.search(query, top_k=5)
         variants = []
-        for label, operational in (("without_operational_rag", {"status": "NO_RELEVANT_CONTEXT", "results": []}), ("with_operational_rag", local_rag.search(query, decision=decision))):
+        for label, operational in (("without_operational_rag", {"status": "NO_RELEVANT_CONTEXT", "results": []}), ("with_operational_rag", skills_rag.search(query, decision=decision))):
             envelope = context_handoff.build_context(query, decision, operational, soc_result=soc)
             response = provider.complete(user_request=query, context=envelope["context_text"])
             answer = response.get("answer", "")

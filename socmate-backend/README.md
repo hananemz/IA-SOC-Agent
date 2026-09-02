@@ -1,6 +1,6 @@
-# SOCMate backend
+# IA SOC backend
 
-Small API-only bridge for `socmate-frontend`. It does not contain a dashboard.
+Small API-only bridge for `ia-soc-frontend`. It does not contain a dashboard.
 
 ## Start
 

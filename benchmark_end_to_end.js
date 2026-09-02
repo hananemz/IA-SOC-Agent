@@ -1,4 +1,4 @@
-﻿/**
+/**
  * SOC Architecture End-to-End Benchmark
  * Pipeline: USER -> ROUTER -> SKILLS -> SOC RAG -> MCP -> SPLUNK/ELASTIC -> ANSWER
  * Compares Config A (WITHOUT Skills RAG) vs Config B (WITH Skills RAG)
@@ -12,7 +12,7 @@ const WORKSPACE = process.cwd();
 const ROUTER_DIR = 'C:\\Users\\lenovo\\.agents\\skills-router\\security-skill-router';
 const SKILLS_DIR = 'C:\\Users\\lenovo\\.agents\\skills';
 const SKILLS_SPLUNK_DIR = 'C:\\Users\\lenovo\\.agents\\skills-splunk';
-const SOC_RAG_DIR = 'C:\\Users\\lenovo\\.agents\\skills-router\\security-skill-router\\local-rag';
+const SOC_RAG_DIR = 'C:\\Users\\lenovo\\.agents\\skills-router\\security-skill-router\\skills-rag';
 const REPEATS = 5;
 
 function now() { return performance.now(); }
@@ -238,12 +238,12 @@ function benchmarkSocRag(query, withSkillsRag) {
     };
   }
   
-  // WITH Skills RAG: also call local_rag.py
+  // WITH Skills RAG: also call skills_rag.py
   const tSk0 = now();
   let skillsRagResult = { status: 'NOT_MEASURABLE', results: [] };
   if (pyPath) {
     try {
-      const cmd = \"\" "\\\local_rag.py" search "" --top-k 4\;
+      const cmd = \"\" "\\\skills_rag.py" search "" --top-k 4\;
       const out = execSync(cmd, { timeout: 15000, maxBuffer: 10 * 1024 * 1024 });
       skillsRagResult = JSON.parse(out.toString());
     } catch(e) {

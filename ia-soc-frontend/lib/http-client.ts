@@ -6,7 +6,7 @@ function buildUrl(endpoint: string): string {
 
 function getAuthToken(): string | null {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem('sekera_auth_token') || process.env.NEXT_PUBLIC_API_AUTH_TOKEN || null;
+  return localStorage.getItem('ia_soc_auth_token') || process.env.NEXT_PUBLIC_API_AUTH_TOKEN || null;
 }
 
 interface RequestOptions extends RequestInit {

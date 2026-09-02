@@ -1,6 +1,6 @@
-# Sekera Services Frontend (SOC IA Agent Platform)
+# IA SOC Agent Frontend (SOC IA Agent Platform)
 
-Sekera Services is a next-generation Security Operations Center (SOC) frontend interface powered by the SOC backend (RAG + Model Context Protocol, with Qwen/OpenRouter by default or Codex CLI as an optional provider).
+IA SOC Agent is a next-generation Security Operations Center (SOC) frontend interface powered by the SOC backend (RAG + Model Context Protocol, with Qwen/OpenRouter by default or Codex CLI as an optional provider).
 
 ## Tech Stack
 
@@ -15,7 +15,7 @@ Sekera Services is a next-generation Security Operations Center (SOC) frontend i
 ## Project Structure
 
 ```tree
-sekera-frontend/
+ia-soc-frontend/
 ├── app/
 │   ├── admin/             # User management & MCP connectors config
 │   ├── ai-gym/            # Skills router sandbox & evaluation (supports negative feedback filter)
@@ -52,7 +52,7 @@ sekera-frontend/
 
 1. Clone or navigate to the project directory:
    ```bash
-   cd socmate-frontend
+   cd ia-soc-frontend
    ```
 
 2. Install dependencies:

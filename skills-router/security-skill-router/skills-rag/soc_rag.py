@@ -1,6 +1,6 @@
 """Small, provider-independent SOC Analyst RAG.
 
-This module deliberately owns a separate corpus and index from ``local_rag``.
+This module deliberately owns a separate corpus and index from ``skills_rag``.
 SOC documents are guidance about security reasoning; they are never MCP
 evidence and never select a platform or authorize an action.
 """
@@ -18,7 +18,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from typing import Any, Iterable
 
-from local_rag import tokens
+from skills_rag import tokens
 
 TOKEN_RE = re.compile(r"[a-z0-9_.-]{2,}")
 DEFAULT_TOP_K = 6

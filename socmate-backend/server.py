@@ -1,4 +1,4 @@
-"""Small API bridge for socmate-frontend.
+"""Small API bridge for ia-soc-frontend.
 
 The browser never talks directly to skills, RAG, MCP, or provider secrets.
 This service performs lightweight routing and RAG retrieval, then optionally
@@ -19,14 +19,14 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 ROUTER_ROOT = ROOT / "skills-router" / "security-skill-router"
-RAG_ROOT = ROUTER_ROOT / "local-rag"
+RAG_ROOT = ROUTER_ROOT / "skills-rag"
 sys.path.insert(0, str(RAG_ROOT))
 
 try:
-    import local_rag
+    import skills_rag
     import soc_rag
 except Exception:  # Keep health endpoint available if optional RAG imports fail.
-    local_rag = None
+    skills_rag = None
     soc_rag = None
 
 
@@ -117,10 +117,10 @@ def route_request(message: str, requested_platform: str | None = None) -> dict[s
 
 
 def retrieve_context(message: str, decision: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-    if not local_rag or not soc_rag:
+    if not skills_rag or not soc_rag:
         return [], []
     try:
-        operational = local_rag.search(message, top_k=4, decision=decision)
+        operational = skills_rag.search(message, top_k=4, decision=decision)
     except Exception:
         operational = {"results": []}
     try:
@@ -186,7 +186,7 @@ def assistant_response(body: dict[str, Any]) -> dict[str, Any]:
         "query_language": decision["query_language"],
         "mcp": None,
         "mcp_status": "NOT_CONFIGURED",
-        "agent_provider": "openrouter" if os.getenv("OPENROUTER_API_KEY") else "local-rag-fallback",
+        "agent_provider": "openrouter" if os.getenv("OPENROUTER_API_KEY") else "skills-rag-fallback",
         "evidence": [],
         "sources": ["operational-rag", "soc-analyst-rag"] if operational or soc else [],
         "activities": [
@@ -219,9 +219,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         if self.path == "/api/health":
-            self.respond(200, {"status": "ok", "overall_label": "SOC backend online", "systems": {"rag": {"status": "available" if local_rag and soc_rag else "unavailable"}}})
+            self.respond(200, {"status": "ok", "overall_label": "SOC backend online", "systems": {"rag": {"status": "available" if skills_rag and soc_rag else "unavailable"}}})
         elif self.path == "/api/rag/status":
-            self.respond(200, {"status": "available" if local_rag and soc_rag else "unavailable", "documents": 0})
+            self.respond(200, {"status": "available" if skills_rag and soc_rag else "unavailable", "documents": 0})
         elif self.path == "/api/dashboard/overview":
             self.respond(200, {"alerts": 0, "investigations": 0, "threats": 0, "status": "connected"})
         elif self.path in {"/api/alerts", "/api/investigations", "/api/incidents", "/api/threat-feed", "/api/improvement-proposals", "/api/feedback/history"}:
@@ -251,7 +251,7 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     server = ThreadingHTTPServer((HOST, PORT), Handler)
-    print(f"SOCMate backend listening on http://{HOST}:{PORT}")
+    print(f"IA SOC backend listening on http://{HOST}:{PORT}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

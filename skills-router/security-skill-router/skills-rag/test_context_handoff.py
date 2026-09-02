@@ -1,11 +1,11 @@
-﻿import sys
+import sys
 import unittest
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import context_handoff
-import local_rag
+import skills_rag
 
 
 class RecordingProvider:
@@ -22,7 +22,7 @@ class RecordingProvider:
 
 class ContextHandoffIntegrationTests(unittest.TestCase):
     def _run(self, text, decision):
-        rag = local_rag.search(text, top_k=5, decision=decision)
+        rag = skills_rag.search(text, top_k=5, decision=decision)
         envelope = context_handoff.build_context(
             text, decision, rag,
             constraints=["Use only verified router and skill metadata.", "Perform read-only investigation only."],

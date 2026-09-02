@@ -43,7 +43,7 @@ export async function getCurrentUser(): Promise<UserProfile> {
     return {
       id: 'USR-001',
       name: 'SOC Lead Operator',
-      email: 'operator@sekera.ai',
+      email: 'operator@iasoc.ai',
       role: health.overall_label || 'SOC IA Agent Operator',
       avatarInitials: 'SO'
     };
@@ -51,7 +51,7 @@ export async function getCurrentUser(): Promise<UserProfile> {
     return {
       id: 'USR-001',
       name: 'Alex Mercer',
-      email: 'alex.mercer@sekera.ai',
+      email: 'alex.mercer@iasoc.ai',
       role: 'Lead SOC Operator',
       avatarInitials: 'AM'
     };
@@ -71,7 +71,7 @@ export async function getAlerts(): Promise<Alert[]> {
       title: item.title || 'Security Alert',
       severity: item.severity === 'high' || item.severity === 'Critical' ? 'Critical' : item.severity === 'medium' ? 'Medium' : 'High',
       source: item.source || item.platform || 'Elastic SIEM',
-      client: item.client || 'Sekera Enterprise',
+      client: item.client || 'IA SOC',
       status: item.status || 'New',
       timestamp: item.timestamp || 'Recent',
       rawPayload: JSON.stringify(item)
@@ -320,7 +320,7 @@ export async function getAdmins(): Promise<AdminUser[]> {
       {
         id: 'USR-1',
         name: 'SOC Lead Operator',
-        email: 'operator@sekera.ai',
+        email: 'operator@iasoc.ai',
         role: 'Lead Operator',
         mcpConnectors: [
           { name: 'Splunk Enterprise MCP', status: health.systems?.splunk?.status === 'connected' ? 'Connected' : 'Degraded', latency: (health.systems?.splunk?.latency_ms || 42) + 'ms' },
@@ -335,7 +335,7 @@ export async function getAdmins(): Promise<AdminUser[]> {
 
 export async function getClients(): Promise<ClientTenant[]> {
   return [
-    { id: 'CLI-1', name: 'Sekera Enterprise Tenant', industry: 'Cybersecurity Operations', activeAlerts: 3, openTickets: 1, riskScore: 'High', mcpProvider: 'Mixed' }
+    { id: 'CLI-1', name: 'IA SOC Tenant', industry: 'Cybersecurity Operations', activeAlerts: 3, openTickets: 1, riskScore: 'High', mcpProvider: 'Mixed' }
   ];
 }
 

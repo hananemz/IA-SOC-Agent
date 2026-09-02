@@ -5,7 +5,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import context_handoff
-import local_rag
+import skills_rag
 import soc_rag
 import recommendations
 
@@ -156,7 +156,7 @@ class SocRagTests(unittest.TestCase):
     def test_soc_skills_and_mcp_sections_are_separate(self):
         request = "Investigate suspicious PowerShell execution in Elastic"
         decision = {"platform": "elastic", "skill": "security-alert-triage", "query_language": "ES|QL", "mcp": "elastic", "mcp_status": "VERIFIED"}
-        skills = local_rag.search(request, decision=decision)
+        skills = skills_rag.search(request, decision=decision)
         soc = self.search(request)
         envelope = context_handoff.build_context(request, decision, skills, soc_result=soc, evidence_results=[{"event.action": "process_started"}])
         text = envelope["context_text"]

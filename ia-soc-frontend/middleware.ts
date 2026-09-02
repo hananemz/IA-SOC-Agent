@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('sekera_auth_token')?.value || request.headers.get('authorization');
+  const token = request.cookies.get('ia_soc_auth_token')?.value || request.headers.get('authorization');
   const isAuthPage = request.nextUrl.pathname.startsWith('/login');
 
   // If trying to access protected dashboard routes without token, redirect to /login
