@@ -5,7 +5,7 @@ Small API-only bridge for `ia-soc-frontend`. It does not contain a dashboard.
 ## Start
 
 ```powershell
-cd C:\Users\lenovo\.agents\socmate-backend
+cd C:\Users\lenovo\.agents\ia-soc-backend
 .\start.ps1
 ```
 

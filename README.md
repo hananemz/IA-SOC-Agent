@@ -9,7 +9,7 @@ Dépôt monorepo du prototype opérationnel **IA SOC Agent** :
 - `skills-router/security-skill-router/skills-rag/` — RAG opérationnel et SOC,
   corpus, indexeurs, handoff de contexte, recommandations et validation des
   preuves.
-- `socmate-backend/` — API locale qui relie le frontend au routeur et aux RAG.
+- `ia-soc-backend/` — API locale qui relie le frontend au routeur et aux RAG.
 - `ia-soc-frontend/` — frontend Next.js **IA SOC Agent** avec chat,
   alertes, tickets, evidence & validation, review queue et feedback loop.
 
@@ -26,7 +26,7 @@ d amélioration sans déclencher automatiquement une action de confinement.
 ### Backend
 
 ```powershell
-cd .\socmate-backend
+cd .\ia-soc-backend
 .\start.ps1
 ```
 
