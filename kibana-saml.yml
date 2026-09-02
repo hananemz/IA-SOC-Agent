@@ -1,0 +1,29 @@
+# Kibana SAML SSO Configuration
+# Requires Kibana restart.
+# Replace placeholders marked [REPLACE] with your IdP values.
+
+# --- Server URLs ---
+server.publicBaseUrl: "http://localhost:5601"
+
+# --- SAML SSO Providers ---
+xpack.security.authc.providers:
+  - type: basic
+    order: 0
+  - type: saml
+    order: 1
+    saml:
+      # -- IdP Settings [REPLACE] --
+      idp.metadataPath: "/etc/kibana/saml/idp-metadata.xml"
+      idp.entityId: "https://your-idp.example.com/sso"
+
+      # -- SP Settings (Kibana as Service Provider) --
+      sp.entityId: "http://localhost:5601"
+      sp.acs.uri: "http://localhost:5601/api/security/v1/saml/acs"
+      sp.logout.redirectUri: "http://localhost:5601"
+
+      # -- Attribute Mapping --
+      attributes.principal: "email"
+
+      # -- SP Keystore --
+      sp.keystorePath: "/etc/kibana/saml/kibana-saml-keystore.p12"
+      sp.keystorePassword: "changeme-kibana-sp-password"

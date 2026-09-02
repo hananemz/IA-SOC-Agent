@@ -1,0 +1,4 @@
+interface:
+  display_name: Security Skill Router
+  short_description: Deterministically route security requests to Elastic or Splunk skills and MCP capabilities
+  default_prompt: Route this security request by platform first, then select and verify the most specific available skill and MCP capability.

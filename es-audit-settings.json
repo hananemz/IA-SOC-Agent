@@ -1,0 +1,17 @@
+{
+  "persistent": {
+    "xpack.security.audit.enabled": true,
+    "xpack.security.audit.logfile.events.include": [
+      "access_denied",
+      "anonymous_access_denied",
+      "run_as_denied",
+      "connection_denied",
+      "tampered_request",
+      "security_config_change"
+    ],
+    "xpack.security.audit.logfile.log_index": true,
+    "xpack.security.audit.filter.exclude_users": [
+      "kibana_system"
+    ]
+  }
+}

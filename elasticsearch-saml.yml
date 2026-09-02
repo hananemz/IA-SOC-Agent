@@ -1,0 +1,43 @@
+# Elasticsearch SAML Realm Configuration
+# Requires cluster restart.
+# Replace placeholders marked [REPLACE] with your IdP values.
+
+xpack.security.authc.realms:
+  saml:
+    saml_corp:                                # Realm name
+      order: 1                                # Auth order
+      enable: true
+
+      # -- IdP Settings [REPLACE] --
+      idp.metadata.path: "/etc/elasticsearch/saml/idp-metadata.xml"
+      idp.entityid: "https://your-idp.example.com/sso"
+
+      # -- SP Settings (Elasticsearch as Service Provider) --
+      sp.entityid: "http://localhost:9200"
+      sp.acs.uri: "http://localhost:9200/saml/acs"
+      sp.logout.redirect_uri: "http://localhost:9200"
+      sp.metadata.path: "/etc/elasticsearch/saml/sp-metadata.xml"
+
+      # -- SP Keystore (for signing SAML assertions) --
+      sp.keystore.path: "/etc/elasticsearch/saml/saml-sp-keystore.p12"
+      sp.keystore.password: "changeme-sp-key-password"
+
+      # -- Attribute Mappings [REPLACE] --
+      attributes.principal: "email"
+      attributes.name: "name"
+      attributes.groups: "groups"
+
+      # -- Role mapping from SAML groups [REPLACE] --
+      mapping.groups:
+        - groups: "admin"
+          roles: ["superuser"]
+        - groups: "viewers"
+          roles: ["viewer"]
+        - groups: "editors"
+          roles: ["remote_monitoring_agent", "kibana_user"]
+
+# --- Companion Realm: keep native for REST API / automation ---
+xpack.security.authc.realms:
+  native:
+    native1:
+      order: 0

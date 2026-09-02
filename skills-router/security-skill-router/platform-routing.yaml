@@ -1,0 +1,55 @@
+version: 1
+platform_detection:
+  precedence:
+    - explicit_cross_platform_request
+    - explicit_platform_indicator
+    - established_conversation_context
+    - ambiguity
+  splunk_indicators:
+    - Splunk
+    - Splunk Enterprise
+    - Splunk Enterprise Security
+    - SPL
+    - "index="
+    - "sourcetype="
+    - saved search
+    - Splunk alert
+    - Dashboard Studio
+    - _internal
+    - _audit
+    - notable event
+    - Incident Review
+    - correlation search
+  elastic_indicators:
+    - Elastic
+    - Elasticsearch
+    - Kibana
+    - Elastic Security
+    - ES|QL
+    - KQL
+    - Elasticsearch index
+    - Elasticsearch query
+    - Kibana rule
+    - Elastic detection rule
+    - Elastic alert
+    - Elastic case
+  generic_terms_do_not_route:
+    - SIEM
+    - alert
+    - detection
+    - security
+    - logs
+    - threat
+    - MITRE
+    - brute force
+    - authentication
+    - investigation
+    - incident
+ambiguity:
+  platform: unknown
+  status: AMBIGUOUS
+  required_clarification: true
+  question: "Which platform do you want: Elastic or Splunk?"
+query_languages:
+  splunk: SPL
+  elastic: "ES|QL/KQL"

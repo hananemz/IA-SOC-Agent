@@ -1,0 +1,18 @@
+version: 1
+servers:
+  elastic:
+    mcp_server: elastic
+    status: VERIFIED
+    query_languages: [ES|QL, KQL]
+    capabilities: [esql, search, get_mappings, get_shards, list_indices]
+  splunk:
+    mcp_server: splunk-mcp-server
+    configuration_status: VERIFIED
+    backend_runtime_status: NOT VERIFIED
+    query_languages: [SPL]
+    capabilities: [splunk_run_query, splunk_run_saved_search, splunk_get_indexes, splunk_get_index_info, splunk_get_metadata, splunk_get_knowledge_objects, splunk_get_info, splunk_get_user_info, splunk_get_user_list]
+execution_gate:
+  require_skill_exists: true
+  require_capability_exists: true
+  require_dependency_verification: true
+  mutation_requires_confirmation: true

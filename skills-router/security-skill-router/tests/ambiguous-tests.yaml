@@ -1,0 +1,5 @@
+version: 1
+clarification: "Which platform do you want: Elastic or Splunk?"
+tests:
+  - {id: A1, request: Show me the brute force alerts., expected_status: AMBIGUOUS}
+  - {id: A2, request: Find suspicious login activity., expected_status: AMBIGUOUS}

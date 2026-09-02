@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-08-18T12:51:40.286Z",
+  "total_executions": 30,
+  "configurations": [
+    "with_skills_rag",
+    "without_skills_rag"
+  ],
+  "with_skills_rag": {
+    "router": {
+      "avg": 0.04,
+      "median": 0.01,
+      "min": 0.01,
+      "max": 0.26,
+      "p95": 0.13
+    },
+    "skills": {
+      "avg": 2.55,
+      "median": 1.42,
+      "min": 0.95,
+      "max": 19.43,
+      "p95": 2.73
+    },
+    "soc_rag": {
+      "avg": 278.76,
+      "median": 232.62,
+      "min": 166.36,
+      "max": 1123.91,
+      "p95": 386
+    },
+    "skills_rag": {
+      "avg": 467.08,
+      "median": 457.38,
+      "min": 333.4,
+      "max": 739.15,
+      "p95": 636.85
+    },
+    "local_pipeline": {
+      "avg": 748.42,
+      "median": 695.36,
+      "min": 517.24,
+      "max": 1634.49,
+      "p95": 959.73
+    },
+    "avg_context_chars": 27019,
+    "avg_soc_chunks": 3.3,
+    "avg_skills_rag_chunks": 6.3,
+    "avg_skills_rag_chars": 3167
+  },
+  "without_skills_rag": {
+    "router": {
+      "avg": 0.01,
+      "median": 0.01,
+      "min": 0.01,
+      "max": 0.02,
+      "p95": 0.02
+    },
+    "skills": {
+      "avg": 1.55,
+      "median": 1.5,
+      "min": 0.92,
+      "max": 3.2,
+      "p95": 2.3
+    },
+    "soc_rag": {
+      "avg": 237.77,
+      "median": 236.43,
+      "min": 166.38,
+      "max": 327.13,
+      "p95": 317.87
+    },
+    "local_pipeline": {
+      "avg": 239.33,
+      "median": 237.74,
+      "min": 167.44,
+      "max": 328.57,
+      "p95": 318.89
+    },
+    "avg_context_chars": 23852,
+    "avg_soc_chunks": 3.3
+  },
+  "comparison": {
+    "latency_diff_ms": 509.09,
+    "latency_diff_pct": 212.7,
+    "context_diff_chars": 3167,
+    "skills_rag_latency_ms": {
+      "avg": 467.08,
+      "median": 457.38,
+      "min": 333.4,
+      "max": 739.15,
+      "p95": 636.85
+    },
+    "verdict": "Skills RAG is REDUNDANT",
+    "recommendation": "Remove Skills RAG from the pipeline"
+  },
+  "mcp_real": {
+    "splunk_auth_query_ms": 5329,
+    "elastic_security_query_ms": 803,
+    "elastic_powershell_query_ms": 255
+  }
+}

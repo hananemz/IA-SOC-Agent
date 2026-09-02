@@ -1,0 +1,64 @@
+version: 1
+source_roots:
+  elastic: C:\Users\lenovo\.agents\skills
+  splunk: C:\Users\lenovo\.agents\skills-splunk
+platforms:
+  elastic:
+    status: VERIFIED
+    skills:
+      - {name: elasticsearch-audit, path: C:\Users\lenovo\.agents\skills\elasticsearch-audit\SKILL.md, tasks: [audit]}
+      - {name: elasticsearch-authn, path: C:\Users\lenovo\.agents\skills\elasticsearch-authn\SKILL.md, tasks: [authentication]}
+      - {name: elasticsearch-authz, path: C:\Users\lenovo\.agents\skills\elasticsearch-authz\SKILL.md, tasks: [authorization]}
+      - {name: elasticsearch-esql, path: C:\Users\lenovo\.agents\skills\elasticsearch-esql\SKILL.md, tasks: [search]}
+      - {name: elasticsearch-security-troubleshooting, path: C:\Users\lenovo\.agents\skills\elasticsearch-security-troubleshooting\SKILL.md, tasks: [troubleshooting]}
+      - {name: kibana-alerting-rules, path: C:\Users\lenovo\.agents\skills\kibana-alerting-rules\SKILL.md, tasks: [alerting]}
+      - {name: kibana-anomaly-detection, path: C:\Users\lenovo\.agents\skills\kibana-anomaly-detection\SKILL.md, tasks: [anomaly_detection]}
+      - {name: kibana-audit, path: C:\Users\lenovo\.agents\skills\kibana-audit\SKILL.md, tasks: [audit]}
+      - {name: kibana-dashboards, path: C:\Users\lenovo\.agents\skills\kibana-dashboards\SKILL.md, tasks: [dashboards]}
+      - {name: observability-logs-search, path: C:\Users\lenovo\.agents\skills\observability-logs-search\SKILL.md, tasks: [logs_search]}
+      - {name: security-alert-triage, path: C:\Users\lenovo\.agents\skills\security-alert-triage\SKILL.md, tasks: [security_alert_triage]}
+      - {name: security-case-management, path: C:\Users\lenovo\.agents\skills\security-case-management\SKILL.md, tasks: [case_management]}
+      - {name: security-detection-rule-management, path: C:\Users\lenovo\.agents\skills\security-detection-rule-management\SKILL.md, tasks: [detection_rules]}
+      - {name: cloud-access-management, path: C:\Users\lenovo\.agents\skills\cloud-access-management\SKILL.md, tasks: [cloud_access]}
+      - {name: cloud-create-project, path: C:\Users\lenovo\.agents\skills\cloud-create-project\SKILL.md, tasks: [cloud_project]}
+      - {name: cloud-manage-project, path: C:\Users\lenovo\.agents\skills\cloud-manage-project\SKILL.md, tasks: [cloud_project]}
+      - {name: cloud-network-security, path: C:\Users\lenovo\.agents\skills\cloud-network-security\SKILL.md, tasks: [network_security]}
+      - {name: cloud-setup, path: C:\Users\lenovo\.agents\skills\cloud-setup\SKILL.md, tasks: [cloud_setup]}
+      - {name: elasticsearch-file-ingest, path: C:\Users\lenovo\.agents\skills\elasticsearch-file-ingest\SKILL.md, tasks: [file_ingest]}
+      - {name: elasticsearch-onboarding, path: C:\Users\lenovo\.agents\skills\elasticsearch-onboarding\SKILL.md, tasks: [onboarding]}
+      - {name: kibana-agent-builder, path: C:\Users\lenovo\.agents\skills\kibana-agent-builder\SKILL.md, tasks: [agent_builder]}
+      - {name: kibana-connectors, path: C:\Users\lenovo\.agents\skills\kibana-connectors\SKILL.md, tasks: [connectors]}
+      - {name: kibana-streams, path: C:\Users\lenovo\.agents\skills\kibana-streams\SKILL.md, tasks: [streams]}
+      - {name: kibana-vega, path: C:\Users\lenovo\.agents\skills\kibana-vega\SKILL.md, tasks: [visualization]}
+      - {name: observability-edot-dotnet-instrument, path: C:\Users\lenovo\.agents\skills\observability-edot-dotnet-instrument\SKILL.md, tasks: [instrumentation]}
+      - {name: observability-edot-dotnet-migrate, path: C:\Users\lenovo\.agents\skills\observability-edot-dotnet-migrate\SKILL.md, tasks: [migration]}
+      - {name: observability-edot-java-instrument, path: C:\Users\lenovo\.agents\skills\observability-edot-java-instrument\SKILL.md, tasks: [instrumentation]}
+      - {name: observability-edot-java-migrate, path: C:\Users\lenovo\.agents\skills\observability-edot-java-migrate\SKILL.md, tasks: [migration]}
+      - {name: observability-edot-python-instrument, path: C:\Users\lenovo\.agents\skills\observability-edot-python-instrument\SKILL.md, tasks: [instrumentation]}
+      - {name: observability-edot-python-migrate, path: C:\Users\lenovo\.agents\skills\observability-edot-python-migrate\SKILL.md, tasks: [migration]}
+      - {name: observability-k8s-investigation, path: C:\Users\lenovo\.agents\skills\observability-k8s-investigation\SKILL.md, tasks: [kubernetes_investigation]}
+      - {name: observability-llm-obs, path: C:\Users\lenovo\.agents\skills\observability-llm-obs\SKILL.md, tasks: [llm_observability]}
+      - {name: observability-manage-slos, path: C:\Users\lenovo\.agents\skills\observability-manage-slos\SKILL.md, tasks: [slos]}
+      - {name: observability-service-health, path: C:\Users\lenovo\.agents\skills\observability-service-health\SKILL.md, tasks: [service_health]}
+      - {name: security-generate-security-sample-data, path: C:\Users\lenovo\.agents\skills\security-generate-security-sample-data\SKILL.md, tasks: [synthetic_data]}
+  splunk:
+    status: VERIFIED
+    skills:
+      - {name: splunk-alerting, path: C:\Users\lenovo\.agents\skills-splunk\splunk-alerting\SKILL.md, tasks: [alerting]}
+      - {name: splunk-audit, path: C:\Users\lenovo\.agents\skills-splunk\splunk-audit\SKILL.md, tasks: [audit]}
+      - {name: splunk-authentication, path: C:\Users\lenovo\.agents\skills-splunk\splunk-authentication\SKILL.md, tasks: [authentication]}
+      - {name: splunk-authorization, path: C:\Users\lenovo\.agents\skills-splunk\splunk-authorization\SKILL.md, tasks: [authorization]}
+      - {name: splunk-cloud-access-management, path: C:\Users\lenovo\.agents\skills-splunk\splunk-cloud-access-management\SKILL.md, tasks: [cloud_access]}
+      - {name: splunk-dashboards, path: C:\Users\lenovo\.agents\skills-splunk\splunk-dashboards\SKILL.md, tasks: [dashboards]}
+      - {name: splunk-generate-security-sample-data, path: C:\Users\lenovo\.agents\skills-splunk\splunk-generate-security-sample-data\SKILL.md, tasks: [synthetic_data]}
+      - {name: splunk-logs-search, path: C:\Users\lenovo\.agents\skills-splunk\splunk-logs-search\SKILL.md, tasks: [logs_search]}
+      - {name: splunk-mltk-anomaly-detection, path: C:\Users\lenovo\.agents\skills-splunk\splunk-mltk-anomaly-detection\SKILL.md, tasks: [anomaly_detection]}
+      - {name: splunk-search, path: C:\Users\lenovo\.agents\skills-splunk\splunk-search\SKILL.md, tasks: [search]}
+      - {name: splunk-security-alert-triage, path: C:\Users\lenovo\.agents\skills-splunk\splunk-security-alert-triage\SKILL.md, tasks: [security_alert_triage]}
+      - {name: splunk-security-case-management, path: C:\Users\lenovo\.agents\skills-splunk\splunk-security-case-management\SKILL.md, tasks: [case_management]}
+      - {name: splunk-security-detection-rules, path: C:\Users\lenovo\.agents\skills-splunk\splunk-security-detection-rules\SKILL.md, tasks: [detection_rules]}
+      - {name: splunk-security-troubleshooting, path: C:\Users\lenovo\.agents\skills-splunk\splunk-security-troubleshooting\SKILL.md, tasks: [troubleshooting]}
+dependencies:
+  enterprise_security: NOT VERIFIED
+  mltk: NOT VERIFIED
+  dashboard_studio: NOT VERIFIED

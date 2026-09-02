@@ -1,0 +1,66 @@
+# ==============================================================================
+# SAML Role Mapping API Commands
+# Run these after configuring the SAML realm.
+# ==============================================================================
+
+# --- Admin group mapping ---
+# POST /_security/role_mapping/saml-admins
+{
+  "description": "Map SAML 'admin' group to superuser role",
+  "enabled": true,
+  "rules": {
+    "field": {
+      "groups": "admin"
+    }
+  },
+  "roles": [
+    "superuser"
+  ]
+}
+
+# --- Viewers group mapping ---
+# POST /_security/role_mapping/saml-viewers
+{
+  "description": "Map SAML 'viewers' group to read-only role",
+  "enabled": true,
+  "rules": {
+    "field": {
+      "groups": "viewers"
+    }
+  },
+  "roles": [
+    "viewer"
+  ]
+}
+
+# --- Editors group mapping ---
+# POST /_security/role_mapping/saml-editors
+{
+  "description": "Map SAML 'editors' group to Kibana dashboard access",
+  "enabled": true,
+  "rules": {
+    "field": {
+      "groups": "editors"
+    }
+  },
+  "roles": [
+    "remote_monitoring_agent",
+    "kibana_user"
+  ]
+}
+
+# --- Apply mappings (curl commands) ---
+# ES_URL=https://your-es-host:9200
+# ES_AUTH=elastic:PASSWORD
+
+curl -s -u $ES_AUTH -X POST "$ES_URL/_security/role_mapping/saml-admins" \
+  -H "Content-Type: application/json" \
+  -d '{"description":"Map SAML admin group","enabled":true,"rules":{"field":{"groups":"admin"}},"roles":["superuser"]}'
+
+curl -s -u $ES_AUTH -X POST "$ES_URL/_security/role_mapping/saml-viewers" \
+  -H "Content-Type: application/json" \
+  -d '{"description":"Map SAML viewers group","enabled":true,"rules":{"field":{"groups":"viewers"}},"roles":["viewer"]}'
+
+curl -s -u $ES_AUTH -X POST "$ES_URL/_security/role_mapping/saml-editors" \
+  -H "Content-Type: application/json" \
+  -d '{"description":"Map SAML editors group","enabled":true,"rules":{"field":{"groups":"editors"}},"roles":["remote_monitoring_agent","kibana_user"]}'

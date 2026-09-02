@@ -1,0 +1,30 @@
+﻿# ==============================================================================
+# Kibana Audit Logging Configuration
+# Purpose: Track dashboard modifications (create, update, delete)
+# ==============================================================================
+
+# --- Audit logging ---
+xpack.security.audit.enabled: true
+
+# Rolling file appender — keeps 30 rotated files (one per day)
+xpack.security.audit.appender:
+  type: rolling-file
+  fileName: /var/log/kibana/audit.log
+  policy:
+    type: time-interval
+    interval: 24h
+  strategy:
+    type: numeric
+    max: 30
+
+# --- Filters ---
+# Suppress high-volume read-only events (saved_object_find)
+# to keep logs focused on mutations (create / update / delete)
+xpack.security.audit.ignore_filters:
+  - actions: [saved_object_find]
+    categories: [database]
+
+  # Also suppress Kibana health-check noise
+  - actions: [authentication]
+    categories: [authentication]
+    users: [kibana_system]

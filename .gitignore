@@ -1,0 +1,47 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/.env.local
+.claude/
+.codex/
+$null
+**/credentials*.json
+**/*secret*
+**/*token*
+
+# Python
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.venv/
+**/venv/
+
+# Node / Next.js
+**/node_modules/
+**/.next/
+**/out/
+**/dist/
+**/coverage/
+
+# Local RAG databases, locks and generated indexes
+**/.rag/qdrant/
+**/.rag/*.lock
+**/.rag/*.tmp
+
+# Local logs and temporary files
+*.log
+*.tmp
+*.bak
+* - Copie.*
+.optimization-backup-*/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large local datasets unless explicitly curated
+csv-logs/

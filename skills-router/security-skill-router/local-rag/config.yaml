@@ -1,0 +1,31 @@
+version: 2
+mode: operational_knowledge_lexical
+operational_enabled: true
+operational_index_path: .rag/operational-index.json
+operational_data_path: operational-knowledge/documents.jsonl
+operational_max_top_k: 8
+operational_min_score_ratio: 0.35
+operational_redundancy_threshold: 0.92
+operational_max_context_chars: 6000
+soc_index_path: .rag/soc-index.json
+soc_data_path: soc-knowledge/documents.jsonl
+soc_expanded_data_path: soc-knowledge/documents_expanded.jsonl
+soc_ai_data_path: soc-knowledge/documents_ai_security.jsonl
+soc_max_top_k: 8
+soc_min_score_ratio: 0.42
+soc_redundancy_threshold: 0.92
+soc_max_context_chars: 4200
+soc_chunk_chars: 1200
+soc_chunk_overlap: 180
+qdrant:
+  enabled: false
+  url:
+  api_key_env: QDRANT_API_KEY
+  path: .rag/qdrant
+  collection: soc_knowledge
+  vector_size: 384
+  distance: COSINE
+  embedding_model: all-MiniLM-L6-v2
+  lexical_weight: 0.70
+  vector_weight: 0.30
+  top_k: 8

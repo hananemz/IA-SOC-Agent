@@ -1,0 +1,23 @@
+# ==============================================================================
+# Elasticsearch.yml — Security Audit Logging
+# Paste into your elasticsearch.yml (self-managed) or apply via cluster settings API.
+# ==============================================================================
+
+# Enable security audit logging
+xpack.security.audit.enabled: true
+
+# Record denial events only (low volume, high signal)
+xpack.security.audit.logfile.events.include:
+  - access_denied
+  - anonymous_access_denied
+  - run_as_denied
+  - connection_denied
+  - tampered_request
+  - security_config_change
+
+# Write audit events to .security-audit-* indices for querying
+xpack.security.audit.logfile.log_index: true
+
+# Exclude noisy monitoring accounts
+xpack.security.audit.filter.exclude_users:
+  - kibana_system

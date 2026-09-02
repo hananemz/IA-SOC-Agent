@@ -1,0 +1,26 @@
+version: 1
+tests:
+  - id: T1
+    request: Search Splunk for brute force authentication alerts.
+    expected: {platform: splunk, query_language: SPL, skill: splunk-security-alert-triage, mcp: splunk-mcp-server}
+  - id: T2
+    request: Search Elasticsearch for suspicious authentication activity.
+    expected: {platform: elastic, skill: elasticsearch-esql, query_language: "ES|QL", mcp: elastic}
+  - id: T3
+    request: Show me the brute force alerts.
+    expected: {platform: unknown, status: AMBIGUOUS, required_clarification: true}
+  - id: T4
+    request: Search index=security_lab for brute force events.
+    expected: {platform: splunk, query_language: SPL, mcp: splunk-mcp-server}
+  - id: T5
+    request: Use ES|QL to find suspicious login activity.
+    expected: {platform: elastic, query_language: "ES|QL", mcp: elastic}
+  - id: T6
+    request: Compare the brute-force alerts in Elastic and Splunk.
+    expected: {mode: cross_platform, elastic_evidence_separate: true, splunk_evidence_separate: true}
+  - id: T7
+    request: Create a Splunk detection rule.
+    expected: {platform: splunk, skill: splunk-security-detection-rules, status: NOT VERIFIED}
+  - id: T8
+    request: Investigate alert alert-99999-fake in Splunk.
+    expected: {platform: splunk, skill: splunk-security-alert-triage, verify_identifier_first: true}

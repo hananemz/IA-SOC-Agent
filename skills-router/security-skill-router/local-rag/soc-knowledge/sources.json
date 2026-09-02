@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "selected": [
+    {"name":"AI Security SOC corpus","location":"soc-knowledge/documents_ai_security.jsonl","authority":"defensive local methodology with OWASP LLM Top 10 references","relevance":"prompt injection, jailbreaks, RAG, agents, leakage, API abuse, supply chain, telemetry and playbooks","size":"twelve focused records","duplication":"separate AI category and metadata; preserves traditional corpus","redistribution":"local summaries; OWASP source URL retained"},
+    {"name":"Expanded SOC Analyst corpus","location":"soc-knowledge/documents_expanded.jsonl","authority":"curated local defensive methodology with Microsoft Sysmon/Windows and MITRE links","relevance":"Windows/Sysmon, Linux, network, malware, authentication, playbooks, SIEM, detection engineering","size":"focused records","duplication":"keeps original records and adds scoped coverage","redistribution":"local project material; external URLs retained"},
+    {"name":"Local Elastic alert triage","location":"skills/security-alert-triage/SKILL.md and references/classification-guide.md","authority":"existing project source","relevance":"triage, evidence discipline, baseline, false-positive and risk reasoning","size":"small curated sections","duplication":"complements Agent/Skills instructions","redistribution":"local project material"},
+    {"name":"Local Elastic detection tuning","location":"skills/security-detection-rule-management/references/endpoint-behavior-tuning-workflow.md","authority":"existing project source","relevance":"detection engineering and false-positive validation","size":"small curated summary","duplication":"low","redistribution":"local project material"},
+    {"name":"Local Splunk alert triage/authentication","location":"skills-splunk/splunk-security-alert-triage/SKILL.md and splunk-authentication/SKILL.md","authority":"existing project source","relevance":"provider-neutral authentication and read-only triage patterns","size":"small curated summary","duplication":"some overlap retained for cross-provider coverage","redistribution":"local project material"},
+    {"name":"MITRE ATT&CK Enterprise technique pages","location":"https://attack.mitre.org/techniques/T1558/003/, T1059/001/, T1110/, T1071/001/","authority":"MITRE ATT&CK","relevance":"authoritative technique/tactic anchors for Kerberoasting, PowerShell, brute force and web protocols","size":"four concise page summaries","duplication":"low","redistribution":"source URLs retained; summaries are attributed"}
+  ],
+  "rejected": [
+    {"name":"Full MITRE ATT&CK STIX bundle","reason":"too large for this lightweight precision-focused RAG; only four technique pages add direct value to the requested cases"},
+    {"name":"Large security repositories and generic web search results","reason":"not needed after local guidance and focused MITRE pages were sufficient; higher duplication and provenance review cost"},
+    {"name":"Unverified community playbooks","reason":"authority and redistribution status were not established"}
+  ]
+}

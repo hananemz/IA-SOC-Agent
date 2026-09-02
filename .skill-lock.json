@@ -1,0 +1,321 @@
+{
+  "version": 3,
+  "skills": {
+    "cloud-access-management": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/cloud/access-management/SKILL.md",
+      "skillFolderHash": "e21cd0d473ce70ce3e03c3160526bad229f1b9cc",
+      "installedAt": "2026-07-26T11:05:48.323Z",
+      "updatedAt": "2026-07-26T11:12:14.963Z"
+    },
+    "cloud-create-project": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/cloud/create-project/SKILL.md",
+      "skillFolderHash": "075c9eed77ad640d00869e0d3cee0b9b665bfb4e",
+      "installedAt": "2026-07-26T11:05:48.331Z",
+      "updatedAt": "2026-07-26T11:12:14.971Z"
+    },
+    "cloud-manage-project": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/cloud/manage-project/SKILL.md",
+      "skillFolderHash": "1a5751100334f1a7e125edd09d1a71881121607b",
+      "installedAt": "2026-07-26T11:05:48.336Z",
+      "updatedAt": "2026-07-26T11:12:14.976Z"
+    },
+    "cloud-network-security": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/cloud/network-security/SKILL.md",
+      "skillFolderHash": "30af04d2c974cc0eaa66b04c90e2df07b1ca317f",
+      "installedAt": "2026-07-26T11:05:48.341Z",
+      "updatedAt": "2026-07-26T11:12:14.980Z"
+    },
+    "cloud-setup": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/cloud/setup/SKILL.md",
+      "skillFolderHash": "37d684818b6f4c27e8b7c34278d65c93fcf912af",
+      "installedAt": "2026-07-26T11:05:48.346Z",
+      "updatedAt": "2026-07-26T11:12:14.986Z"
+    },
+    "elasticsearch-audit": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-audit/SKILL.md",
+      "skillFolderHash": "4a9f7937140edc2d964a6fdcb742b288add02688",
+      "installedAt": "2026-07-26T11:05:48.352Z",
+      "updatedAt": "2026-07-26T11:12:14.991Z"
+    },
+    "elasticsearch-authn": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-authn/SKILL.md",
+      "skillFolderHash": "ab9b37f3490ea1e46b792516280be4c9ccc3298b",
+      "installedAt": "2026-07-26T11:05:48.357Z",
+      "updatedAt": "2026-07-26T11:12:14.996Z"
+    },
+    "elasticsearch-authz": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-authz/SKILL.md",
+      "skillFolderHash": "0fa68c3d1abc95f8310fb05d205dc2c2fbdeae16",
+      "installedAt": "2026-07-26T11:05:48.361Z",
+      "updatedAt": "2026-07-26T11:12:15.004Z"
+    },
+    "elasticsearch-esql": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-esql/SKILL.md",
+      "skillFolderHash": "b70a1e11797f851960fc4f86ed84edaaaeec4dae",
+      "installedAt": "2026-07-26T11:05:48.366Z",
+      "updatedAt": "2026-07-26T11:12:15.009Z"
+    },
+    "elasticsearch-file-ingest": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-file-ingest/SKILL.md",
+      "skillFolderHash": "9b2f3a4c1b47720842ff1259002e793f8041042c",
+      "installedAt": "2026-07-26T11:05:48.372Z",
+      "updatedAt": "2026-07-26T11:12:15.014Z"
+    },
+    "elasticsearch-onboarding": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-onboarding/SKILL.md",
+      "skillFolderHash": "e13d41d07894cdd1f867c2ee48e374e422f1c1ee",
+      "installedAt": "2026-07-26T11:05:48.380Z",
+      "updatedAt": "2026-07-26T11:12:15.020Z"
+    },
+    "elasticsearch-security-troubleshooting": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/elasticsearch/elasticsearch-security-troubleshooting/SKILL.md",
+      "skillFolderHash": "9e601ce086c1427815d1e3ed3405af67798d600e",
+      "installedAt": "2026-07-26T11:05:48.386Z",
+      "updatedAt": "2026-07-26T11:12:15.024Z"
+    },
+    "kibana-agent-builder": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/agent-builder/SKILL.md",
+      "skillFolderHash": "b54a43a7141e7d987f2764ab645df5eafd5aadcf",
+      "installedAt": "2026-07-26T11:05:48.391Z",
+      "updatedAt": "2026-07-26T11:12:15.029Z"
+    },
+    "kibana-alerting-rules": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/kibana-alerting-rules/SKILL.md",
+      "skillFolderHash": "a2fd28bc015bb496c00c30ce9d0cbbcb22459bd6",
+      "installedAt": "2026-07-26T11:05:48.396Z",
+      "updatedAt": "2026-07-26T11:12:15.034Z"
+    },
+    "kibana-anomaly-detection": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/kibana-anomaly-detection/SKILL.md",
+      "skillFolderHash": "7a8ab25a60833c98e950bf796eae3105664a1465",
+      "installedAt": "2026-07-26T11:05:48.403Z",
+      "updatedAt": "2026-07-26T11:12:15.039Z"
+    },
+    "kibana-audit": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/kibana-audit/SKILL.md",
+      "skillFolderHash": "b224c1dc92bbd545dabd53193d96d3c38dec2e96",
+      "installedAt": "2026-07-26T11:05:48.408Z",
+      "updatedAt": "2026-07-26T11:12:15.044Z"
+    },
+    "kibana-connectors": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/kibana-connectors/SKILL.md",
+      "skillFolderHash": "e8f106f985e10e76ff2875e36d660c2dd48e4556",
+      "installedAt": "2026-07-26T11:05:48.412Z",
+      "updatedAt": "2026-07-26T11:12:15.048Z"
+    },
+    "kibana-dashboards": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/kibana-dashboards/SKILL.md",
+      "skillFolderHash": "12c7dae89b25f145814c788961073d1f14290d6a",
+      "installedAt": "2026-07-26T11:05:48.419Z",
+      "updatedAt": "2026-07-26T11:12:15.054Z"
+    },
+    "kibana-vega": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/kibana-vega/SKILL.md",
+      "skillFolderHash": "6be763c7e22b2269628e481ef99d16bc5ade988d",
+      "installedAt": "2026-07-26T11:05:48.426Z",
+      "updatedAt": "2026-07-26T11:12:15.058Z"
+    },
+    "kibana-streams": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/kibana/streams/SKILL.md",
+      "skillFolderHash": "d9dfd91a6bd7a2238c95ac377da331d571cbabbf",
+      "installedAt": "2026-07-26T11:05:48.432Z",
+      "updatedAt": "2026-07-26T11:12:15.063Z"
+    },
+    "observability-edot-dotnet-instrument": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/edot-dotnet-instrument/SKILL.md",
+      "skillFolderHash": "939c043166fad00e36ace4c4539c3c27858822cb",
+      "installedAt": "2026-07-26T11:05:48.438Z",
+      "updatedAt": "2026-07-26T11:12:15.068Z"
+    },
+    "observability-edot-dotnet-migrate": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/edot-dotnet-migrate/SKILL.md",
+      "skillFolderHash": "169f4ac3bfb4826e2d37281c28e361d6ba279cdc",
+      "installedAt": "2026-07-26T11:05:48.443Z",
+      "updatedAt": "2026-07-26T11:12:15.074Z"
+    },
+    "observability-edot-java-instrument": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/edot-java-instrument/SKILL.md",
+      "skillFolderHash": "5d1add4367480c0ab2f1ec76cbfa604dd81f1250",
+      "installedAt": "2026-07-26T11:05:48.448Z",
+      "updatedAt": "2026-07-26T11:12:15.079Z"
+    },
+    "observability-edot-java-migrate": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/edot-java-migrate/SKILL.md",
+      "skillFolderHash": "3fcc80ee8065c7b645080738876b9a4e1f378564",
+      "installedAt": "2026-07-26T11:05:48.453Z",
+      "updatedAt": "2026-07-26T11:12:15.084Z"
+    },
+    "observability-edot-python-instrument": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/edot-python-instrument/SKILL.md",
+      "skillFolderHash": "d4d082566f33b0dd050ae90915b06ee4a867a475",
+      "installedAt": "2026-07-26T11:05:48.458Z",
+      "updatedAt": "2026-07-26T11:12:15.090Z"
+    },
+    "observability-edot-python-migrate": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/edot-python-migrate/SKILL.md",
+      "skillFolderHash": "dd04de0b22327082920c171c7524c652f2a69da9",
+      "installedAt": "2026-07-26T11:05:48.463Z",
+      "updatedAt": "2026-07-26T11:12:15.095Z"
+    },
+    "observability-k8s-investigation": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/k8s-investigation/SKILL.md",
+      "skillFolderHash": "b0324eb3c5a2e4df82fb624e114955c4cc0e9af5",
+      "installedAt": "2026-07-26T11:05:48.468Z",
+      "updatedAt": "2026-07-26T11:12:15.099Z"
+    },
+    "observability-llm-obs": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/llm-obs/SKILL.md",
+      "skillFolderHash": "cc40852b86e27b0a82e880dca578882461ca4a30",
+      "installedAt": "2026-07-26T11:05:48.473Z",
+      "updatedAt": "2026-07-26T11:12:15.105Z"
+    },
+    "observability-logs-search": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/logs-search/SKILL.md",
+      "skillFolderHash": "be98c05b6a85e5893e010440b1e01a0dfec434eb",
+      "installedAt": "2026-07-26T11:05:48.478Z",
+      "updatedAt": "2026-07-26T11:12:15.110Z"
+    },
+    "observability-manage-slos": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/manage-slos/SKILL.md",
+      "skillFolderHash": "3fce98a26f6b01f9a49e54091107caa26748e96b",
+      "installedAt": "2026-07-26T11:05:48.485Z",
+      "updatedAt": "2026-07-26T11:12:15.114Z"
+    },
+    "observability-service-health": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/observability/service-health/SKILL.md",
+      "skillFolderHash": "0afbe1025a3efaab59efda1544f6ef946f8c60a3",
+      "installedAt": "2026-07-26T11:05:48.492Z",
+      "updatedAt": "2026-07-26T11:12:15.123Z"
+    },
+    "security-alert-triage": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/security/alert-triage/SKILL.md",
+      "skillFolderHash": "2532efd7428743c110d26e9b4eeb07dfbe53c6ad",
+      "installedAt": "2026-07-26T11:05:48.502Z",
+      "updatedAt": "2026-07-26T11:12:15.127Z"
+    },
+    "security-case-management": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/security/case-management/SKILL.md",
+      "skillFolderHash": "69355093608f578416ebdcb59efbb050ab44b91c",
+      "installedAt": "2026-07-26T11:05:48.508Z",
+      "updatedAt": "2026-07-26T11:12:15.133Z"
+    },
+    "security-detection-rule-management": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/security/detection-rule-management/SKILL.md",
+      "skillFolderHash": "04e0b27175c1d6304cfc3806328d6632fb940ebc",
+      "installedAt": "2026-07-26T11:05:48.524Z",
+      "updatedAt": "2026-07-26T11:12:15.140Z"
+    },
+    "security-generate-security-sample-data": {
+      "source": "elastic/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/elastic/agent-skills.git",
+      "skillPath": "skills/security/generate-security-sample-data/SKILL.md",
+      "skillFolderHash": "15bb35d61d2e4eba8987533dd6db1c8cbf0c9206",
+      "installedAt": "2026-07-26T11:05:48.538Z",
+      "updatedAt": "2026-07-26T11:12:15.146Z"
+    }
+  },
+  "dismissed": {}
+}

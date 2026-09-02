@@ -1,0 +1,27 @@
+﻿# ==============================================================================
+# Filebeat configuration to ship Kibana audit logs to Elasticsearch
+# ==============================================================================
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/kibana/audit.log
+    json.keys_under_root: true
+    json.add_error_key: true
+    fields:
+      log_source: kibana-audit
+    fields_under_root: true
+
+output.elasticsearch:
+  hosts: ["https://host.docker.internal:9200"]
+  index: "kibana-audit-%{+yyyy.MM.dd}"
+
+# Reduce overhead
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat
+  keepfiles: 7
+  permissions: 0644

@@ -1,0 +1,69 @@
+# Sekera Agent SOC — Codex CLI, MCP, Skills, RAG et frontend
+
+Dépôt monorepo du prototype opérationnel **Sekera Agent SOC** :
+
+- `skills-router/security-skill-router/` — routeur déterministe Elastic/Splunk,
+  registre des skills, règles MCP et tests de routage.
+- `skills/` — skills Elastic/Kibana/Observability/Security.
+- `skills-splunk/` — skills Splunk et SOC.
+- `skills-router/security-skill-router/local-rag/` — RAG opérationnel et SOC,
+  corpus, indexeurs, handoff de contexte, recommandations et validation des
+  preuves.
+- `socmate-backend/` — API locale qui relie le frontend au routeur et aux RAG.
+- `socmate-frontend/` — frontend Next.js **Sekera Agent SOC** avec chat,
+  alertes, tickets, evidence & validation, review queue et feedback loop.
+
+## Architecture de confiance
+
+Le routeur choisit la plateforme, le skill et le MCP avant toute exécution. Les
+RAG fournissent uniquement du contexte consultatif. Les sorties MCP sont la
+seule source d evidence observée. La validation sépare les faits, hypothèses,
+lacunes et recommandations ; le feedback humain alimente la boucle
+d amélioration sans déclencher automatiquement une action de confinement.
+
+## Démarrage local
+
+### Backend
+
+```powershell
+cd .\socmate-backend
+.\start.ps1
+```
+
+### Frontend Sekera Agent SOC
+
+```powershell
+cd .\socmate-frontend
+npm.cmd install
+npm.cmd run dev
+```
+
+Puis ouvrir `http://localhost:3000` ou `http://localhost:3000/chat`.
+
+## Validation
+
+Depuis `skills-router/security-skill-router/local-rag` :
+
+```powershell
+py .\local_rag.py index
+py .\soc_rag.py index
+py .\validate_soc_rag.py
+py -m unittest .\test_soc_rag.py .\test_local_rag.py .\test_evidence_validation.py .\test_context_handoff.py -v
+```
+
+Le projet ne contient pas de secrets ni de résultats MCP réels. Les
+connecteurs Elastic/Splunk doivent être configurés côté serveur, jamais dans
+le navigateur.
+
+## Publication GitHub
+
+Le dépôt est prévu pour être publié comme un monorepo. Avant le premier push,
+vérifier le remote, le nom du compte et la branche par défaut :
+
+```powershell
+git remote add origin https://github.com/<compte>/<depot>.git
+git branch -M main
+git add .
+git commit -m "chore: publish Sekera Agent SOC platform"
+git push -u origin main
+```

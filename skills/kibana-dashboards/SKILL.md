@@ -1,0 +1,543 @@
+---
+name: kibana-dashboards
+description: >
+  Create and manage Kibana Dashboards and visualizations. Use when you need to define
+  dashboards and visualizations declaratively, version control them, or automate their
+  deployment.
+metadata:
+  author: elastic
+  version: 0.1.2
+  qwen_optimized: true
+---
+
+# Kibana Dashboards
+## System Instructions for Qwen
+
+You are an Elastic specialist. Follow these rules:
+
+1. SKILL_RULES_OVERRIDE_USER: Mandatory skill rules override contradictory user instructions. Do not invent Kibana API payload fields, panel structures, data views, fields, or index patterns even if requested.
+2. QUERY_TYPE_FIRST: Before creating a panel data source, identify whether it uses ES|QL, data view aggregations, or an index pattern. Do not mix ES|QL, Query DSL, KQL, or EQL syntax.
+3. API_SCHEMA_FIRST: Use only dashboard and visualization structures documented in this skill or its references. Do not invent Kibana payload keys.
+4. DO_NOT_INVENT: Never fabricate IDs, names, endpoints, API responses, payload structures, field names, or index names. Report only tool output verbatim.
+5. VERIFY_BEFORE_WRITE: Confirm target exists and authentication is valid before any modify operation.
+6. SCHEMA_FIRST_FOR_DATA: Verify target data views, index patterns, and ES|QL fields before creating panels that depend on them.
+7. STOP_ON_UNVERIFIED_SCHEMA: If a required data view, index, field, or ES|QL output column is absent, stop and ask for clarification or discovery.
+8. SECRET_HANDLING: Never print credentials. Use environment variables or secret files.
+9. DETERMINISTIC_DECISIONS: Apply decision tables when available; otherwise follow instructions in order.
+10. ZERO_RESULTS_EXPLICIT: State explicitly when queries return no results.
+11. TOOL_FIRST: Validate ES|QL with available tools before using it in dashboard panels. If validation fails, explain the tool error and state that the query could not be validated.
+12. TRANSPARENCY_ON_ESQL_FAILURE: When ES|QL validation returns an error such as HTTP 400, still provide the ES|QL query as an unverified example if its syntax is coherent. Label it clearly as not validated and do not present its fields or output columns as confirmed.
+
+### Query/API Boundary
+
+| Data source | Correct syntax | Guard |
+|-------------|----------------|-------|
+| ES\|QL | `data_source.type: "esql"` with a piped ES\|QL query and column references from its output. | Verify index fields and generated columns before referencing them. |
+| Data view | `data_view_reference` plus supported aggregation operations. | Use real data view IDs and fields only. |
+| Index pattern | `data_view_spec.index_pattern` and `time_field`. | Verify the index pattern and time field first. |
+| Query DSL/KQL/EQL | Not dashboard panel data source syntax here. | Do not put these syntaxes inside ES\|QL panel queries. |
+
+### Hallucination Guards
+
+| Risk                  | Guard Rail                                            |
+|-----------------------|-------------------------------------------------------|
+| Inventing identifiers | Query list/find commands first; use returned values.  |
+| Wrong API endpoints   | Verify from tool output or env vars before use.       |
+| Inventing fields      | Verify data view/index/ES\|QL schema before panels.    |
+| Inventing indices     | Verify index patterns before data sources.            |
+| Wrong payload shape   | Use only documented dashboard/visualization schemas.  |
+| ES\|QL validation fails | Explain the error, say validation failed, and provide only a clearly labeled unverified ES\|QL example if syntax is coherent. |
+| Over-permissioning    | Apply least privilege; confirm scope with user.       |
+| Missing prerequisites | Check env vars exist and dependencies installed first.|
+
+ and Visualizations
+
+## Overview
+
+The Kibana dashboards and visualizations APIs provide a declarative, Git-friendly format for defining dashboards and
+visualizations. Definitions are minimal, diffable, and suitable for version control and LLM-assisted generation.
+
+**Key Benefits:**
+
+- Minimal payloads (no implementation details or derivable properties)
+- Easy to diff in Git
+- Consistent patterns for GitOps workflows
+- Designed for LLM one-shot generation
+- Robust validation via OpenAPI spec
+
+**Version Requirement:** Kibana 9.4+ (SNAPSHOT)
+
+## Important Caveats
+
+> **ES|QL Visualizations:** ES|QL-based visualizations cannot be created via `/api/visualizations`. They must be created
+> as inline panels within dashboards using the Dashboard API.
+>
+> **Inline vs Saved Object References:** When embedding visualization panels in dashboards, prefer inline definitions
+> over `ref_id` references. Inline definitions are more reliable and self-contained.
+
+## Quick Start
+
+### Environment Configuration
+
+Kibana connection is configured via environment variables. Run `node scripts/kibana-dashboards.js test` to verify the
+connection. If the test fails, suggest these setup options to the user, then stop. Do not try to explore further until a
+successful connection test.
+
+#### Option 1: Elastic Cloud (recommended for production)
+
+```bash
+export KIBANA_CLOUD_ID="deployment-name:base64encodedcloudid"
+export KIBANA_API_KEY="base64encodedapikey"
+```
+
+#### Option 2: Direct URL with API Key
+
+```bash
+export KIBANA_URL="https://your-kibana:5601"
+export KIBANA_API_KEY="base64encodedapikey"
+```
+
+#### Option 3: Basic Authentication
+
+```bash
+export KIBANA_URL="https://your-kibana:5601"
+export KIBANA_USERNAME="elastic"
+export KIBANA_PASSWORD="changeme"
+```
+
+#### Option 4: Local Development with start-local
+
+Use [start-local](https://github.com/elastic/start-local) to spin up Elasticsearch/Kibana locally, then source the
+generated `.env`:
+
+```bash
+curl -fsSL https://elastic.co/start-local | sh
+source elastic-start-local/.env
+export KIBANA_URL="$KB_LOCAL_URL"
+export KIBANA_USERNAME="elastic"
+export KIBANA_PASSWORD="$ES_LOCAL_PASSWORD"
+```
+
+Then run `node scripts/kibana-dashboards.js test` to verify the connection.
+
+#### Optional: Skip TLS verification (development only)
+
+```bash
+export KIBANA_INSECURE="true"
+```
+
+### Basic Workflow
+
+```bash
+# Test connection and API availability
+node scripts/kibana-dashboards.js test
+
+# Dashboard operations
+node scripts/kibana-dashboards.js dashboard get <id>
+echo '<json>' | node scripts/kibana-dashboards.js dashboard create -
+echo '<json>' | node scripts/kibana-dashboards.js dashboard update <id> -
+node scripts/kibana-dashboards.js dashboard delete <id>
+echo '<json>' | node scripts/kibana-dashboards.js dashboard upsert <id> -
+
+# Visualization operations (standalone saved objects)
+node scripts/kibana-dashboards.js vis list
+node scripts/kibana-dashboards.js vis get <id>
+echo '<json>' | node scripts/kibana-dashboards.js vis create -
+echo '<json>' | node scripts/kibana-dashboards.js vis update <id> -
+node scripts/kibana-dashboards.js vis delete <id>
+echo '<json>' | node scripts/kibana-dashboards.js vis upsert <id> -
+```
+
+## Dashboards API
+
+### Dashboard Definition Structure
+
+The API expects a flat request body with `title` and `panels` at the root level. The response wraps these in a `data`
+envelope alongside `id`, `meta`, and `spaces`.
+
+```json
+{
+  "title": "My Dashboard",
+  "panels": [ ... ],
+  "time_range": {
+    "from": "now-24h",
+    "to": "now"
+  }
+}
+```
+
+> **Note:** Dashboard IDs are auto-generated by the API. The script also accepts the legacy wrapped format
+> `{ id?, data: { title, panels }, spaces? }` and unwraps it automatically.
+
+### Dashboard with Inline Visualization Panels (Recommended)
+
+Use inline definitions (properties directly in `config`) for self-contained, portable dashboards:
+
+```json
+{
+  "title": "My Dashboard",
+  "panels": [
+    {
+      "type": "vis",
+      "id": "metric-panel",
+      "grid": { "x": 0, "y": 0, "w": 12, "h": 6 },
+      "config": {
+        "title": "",
+        "type": "metric",
+        "data_source": { "type": "esql", "query": "FROM logs | STATS total = COUNT(*)" },
+        "metrics": [{ "type": "primary", "column": "total", "label": "Total Count" }]
+      }
+    },
+    {
+      "type": "vis",
+      "id": "chart-panel",
+      "grid": { "x": 12, "y": 0, "w": 36, "h": 8 },
+      "config": {
+        "title": "Events Over Time",
+        "type": "xy",
+        "axis": {
+          "x": { "scale": "temporal", "domain": { "type": "fit", "rounding": false } }
+        },
+        "layers": [
+          {
+            "type": "area",
+            "data_source": {
+              "type": "esql",
+              "query": "FROM logs | WHERE @timestamp <= ?_tend AND @timestamp > ?_tstart | STATS count = COUNT(*) BY BUCKET(@timestamp, 75, ?_tstart, ?_tend)"
+            },
+            "x": { "column": "BUCKET(@timestamp, 75, ?_tstart, ?_tend)", "label": "@timestamp" },
+            "y": [{ "column": "count" }]
+          }
+        ]
+      }
+    }
+  ],
+  "time_range": { "from": "now-24h", "to": "now" }
+}
+```
+
+### Dashboard Grid System
+
+Dashboards use a **48-column, infinite-row grid**. On 16:9 screens, approximately **20-24 rows** are visible without
+scrolling. Design for densityâ€”place primary KPIs and key trends above the fold.
+
+| Width   | Columns | Height   | Rows  | Use Case                 |
+| ------- | ------- | -------- | ----- | ------------------------ |
+| Full    | 48      | Large    | 14-16 | Wide time series, tables |
+| Half    | 24      | Standard | 10-12 | Primary charts           |
+| Quarter | 12      | Compact  | 5-6   | KPI metrics              |
+| Sixth   | 8       | Minimal  | 4-5   | Dense metric rows        |
+
+> **Target:** 8-12 panels above the fold. Use descriptive panel titles on the charts themselves instead of adding
+> markdown headers.
+
+**Grid Packing Rules:**
+
+- **Eliminate Dead Space:** Always calculate the bottom edge (`y + h`) of every panel. When starting a new row or
+  placing a panel below another, its `y` coordinate must exactly match the `y + h` of the panel immediately above it.
+- **Align Row Heights:** If multiple panels are placed side-by-side in a row (e.g., sharing the same `y` coordinate),
+  they should generally have the exact same height (`h`). If they do not, you must fill the resulting empty vertical
+  space before placing the next full-width panel.
+
+### Panel Schema
+
+```json
+{
+  "type": "vis",
+  "id": "unique-panel-id",
+  "grid": { "x": 0, "y": 0, "w": 24, "h": 15 },
+  "config": { ... }
+}
+```
+
+| Property | Type   | Required | Description                                      |
+| -------- | ------ | -------- | ------------------------------------------------ |
+| `type`   | string | Yes      | Embeddable type (e.g., `vis`, `markdown`, `map`) |
+| `id`     | string | No       | Unique panel ID (auto-generated if omitted)      |
+| `grid`   | object | Yes      | Position and size (`x`, `y`, `w`, `h`)           |
+| `config` | object | Yes      | Panel-specific configuration                     |
+
+## Visualizations API
+
+### Supported Chart Types
+
+| Type                                 | Description                 | ES\|QL Support |
+| ------------------------------------ | --------------------------- | -------------- |
+| `metric`                             | Single metric value display | Yes            |
+| `xy`                                 | Line, area, bar charts      | Yes            |
+| `gauge`                              | Gauge visualizations        | Yes            |
+| `heatmap`                            | Heatmap charts              | Yes            |
+| `tag_cloud`                          | Tag/word cloud              | Yes            |
+| `data_table`                         | Data tables                 | Yes            |
+| `region_map`                         | Region/choropleth maps      | Yes            |
+| `pie`, `treemap`, `mosaic`, `waffle` | Partition charts            | Yes            |
+
+> **Note:** To create donut charts, use `pie` with `styling.donut_hole` set to `"s"`, `"m"`, or `"l"` (small, medium,
+> large hole). Use `"none"` for a solid pie. Example: `"styling": { "donut_hole": "m" }`.
+
+### Dataset Types
+
+There are three dataset types supported in the Visualizations API. Each uses different patterns for specifying metrics
+and dimensions.
+
+#### Data View Dataset
+
+Use `data_view_reference` with aggregation operations. Kibana performs the aggregations automatically.
+
+```json
+{
+  "data_source": {
+    "type": "data_view_reference",
+    "ref_id": "90943e30-9a47-11e8-b64d-95841ca0b247"
+  }
+}
+```
+
+**Available operations:** `count`, `average`, `sum`, `max`, `min`, `unique_count`, `median`, `standard_deviation`,
+`percentile`, `percentile_rank`, `last_value`, `date_histogram`, `terms`. See
+[Chart Types Reference](references/chart-types-reference.md) for details.
+
+#### ES|QL Dataset
+
+Use `esql` with a query string. Reference the output columns using `{ column: 'column_name' }`.
+
+Before writing the query, verify the requested query type is ES|QL, then verify the index and every source field. After
+writing the query, reference only columns produced by the ES|QL output. If any field, index, or output column is not
+verified, stop and ask for clarification or schema discovery.
+
+If an ES|QL validation tool returns an error, including HTTP 400, report the error and state that the query could not be
+validated. If the ES|QL syntax is still coherent, provide the query only as an unverified example and do not use it as
+evidence for panel columns, schema, or dashboard creation until validation succeeds.
+
+```json
+{
+  "data_source": {
+    "type": "esql",
+    "query": "FROM logs | STATS count = COUNT(), avg_bytes = AVG(bytes) BY host"
+  }
+}
+```
+
+**ES|QL Column Reference Pattern:**
+
+```json
+{ "column": "count" }
+```
+
+> **Key Difference:** With ES|QL, you write the aggregation in the query itself, then reference the resulting columns.
+> With data view, you specify the aggregation operation and Kibana performs it.
+>
+> **Important:** ES|QL visualizations cannot be created via `/api/visualizations`. They must be created as inline panels
+> in dashboards via the Dashboard API.
+
+#### Index Dataset
+
+Use `index` for ad-hoc index patterns without a saved data view:
+
+```json
+{
+  "data_source": {
+    "type": "data_view_spec",
+    "index_pattern": "logs-*",
+    "time_field": "@timestamp"
+  }
+}
+```
+
+## Examples
+
+For detailed schemas and all chart type options, see [Chart Types Reference](references/chart-types-reference.md).
+
+**Metric (Data View):**
+
+```json
+{
+  "type": "metric",
+  "data_source": { "type": "data_view_reference", "ref_id": "90943e30-9a47-11e8-b64d-95841ca0b247" },
+  "metrics": [{ "type": "primary", "operation": "count", "label": "Total Requests" }]
+}
+```
+
+**Metric (ES|QL):**
+
+```json
+{
+  "type": "metric",
+  "data_source": { "type": "esql", "query": "FROM logs | STATS count = COUNT()" },
+  "metrics": [{ "type": "primary", "column": "count", "label": "Total Requests" }]
+}
+```
+
+**XY Bar Chart (Data View):**
+
+```json
+{
+  "title": "Top Hosts",
+  "type": "xy",
+  "axis": { "x": { "title": { "visible": false } }, "y": { "title": { "visible": false } } },
+  "layers": [
+    {
+      "type": "bar_horizontal",
+      "data_source": { "type": "data_view_reference", "ref_id": "90943e30-9a47-11e8-b64d-95841ca0b247" },
+      "x": { "operation": "terms", "fields": ["host.keyword"], "limit": 10 },
+      "y": [{ "operation": "count" }]
+    }
+  ]
+}
+```
+
+**XY Time Series (ES|QL):**
+
+```json
+{
+  "title": "Requests Over Time",
+  "type": "xy",
+  "axis": {
+    "x": { "title": { "visible": false }, "scale": "temporal", "domain": { "type": "fit", "rounding": false } },
+    "y": { "title": { "visible": false } }
+  },
+  "layers": [
+    {
+      "type": "line",
+      "data_source": {
+        "type": "esql",
+        "query": "FROM logs | WHERE @timestamp <= ?_tend AND @timestamp > ?_tstart | STATS count = COUNT() BY BUCKET(@timestamp, 75, ?_tstart, ?_tend)"
+      },
+      "x": { "column": "BUCKET(@timestamp, 75, ?_tstart, ?_tend)", "label": "@timestamp" },
+      "y": [{ "column": "count" }]
+    }
+  ]
+}
+```
+
+> **Tip:** Always hide axis titles when the panel title is descriptive. Use `bar_horizontal` for categorical data with
+> long labels. Use `axis` for axis configuration.
+
+## Full Documentation
+
+- [Dashboard API Reference](references/dashboard-api-reference.md) â€” Dashboard endpoints and schemas
+- [Visualizations API Reference](references/visualizations-api-reference.md) â€” Visualization endpoints
+- [Chart Types Reference](references/chart-types-reference.md) â€” Detailed schemas for each chart type
+- [Example Definitions](assets/) â€” Ready-to-use definitions
+
+### Key Example Files
+
+See `assets/` for ready-to-use definitions: `demo-dashboard.json`, `dashboard-with-visualizations.json`,
+`metric-esql.json`, `bar-chart-esql.json`, `line-chart-timeseries.json`.
+
+## Common Issues
+
+| Error                   | Solution                                                                    |
+| ----------------------- | --------------------------------------------------------------------------- |
+| "401 Unauthorized"      | Check KIBANA_USERNAME/PASSWORD or KIBANA_API_KEY                            |
+| "404 Not Found"         | Verify dashboard/visualization ID exists                                    |
+| "409 Conflict"          | Dashboard/viz already exists; delete first or use update                    |
+| Schema validation error | Ensure column names match query output; use `{ column: 'name' }` for ES\|QL |
+| Metric chart structure  | Requires `metrics` array: `[{ type: 'primary', ... }]`                      |
+| XY chart fails          | Put `data_source` inside each layer, use `axis` (singular)                  |
+| ref_id panels missing   | Prefer inline definitions (properties in `config`) over `ref_id`            |
+
+## Guidelines
+
+1. **Design for density** â€” Operational dashboards must show 8-12 panels above the fold (within the first 24 rows). Use
+   compact panel heights: metrics MUST be `h=4` to `h=6`, and charts MUST be `h=8` to `h=12`.
+2. **Never use Markdown for titles/headers** â€” Do NOT add `markdown` panels to act as dashboard titles or section
+   dividers. This wastes critical vertical space. Use descriptive panel titles on the charts themselves.
+3. **Prioritize above the fold** â€” Primary KPIs and key trends must be placed at `y=0`. Deep-dives and data tables
+   should be placed below the charts.
+4. **Use descriptive chart titles, hide axis titles** â€” Write titles that explain what the chart shows (e.g., "Requests
+   by Response Code"). A good panel title makes axis titles redundant. Always set `axis.x.title.visible: false` and
+   `axis.y.title.visible: false`.
+
+5. **Choose the right dataset type** â€” Use `data_view_reference` for simple aggregations, `esql` for complex queries
+6. **Inline definitions** â€” Prefer inline properties in `config` over `config.ref_id` for portable dashboards
+7. **Test connection first** â€” Run `node scripts/kibana-dashboards.js test` before creating resources
+8. **Get existing examples** â€” Use `vis get <id>` to see the exact schema for different chart types (the CLI subcommand
+   is `vis`)
+9. **Avoid redundant metric labels** â€” For ES|QL metrics, avoid using both a panel title and an inner metric label, as
+   it wastes space. Set the panel `title` to `""` and configure the human-readable label by aliasing the ES|QL column
+   name using backticks (e.g., ``STATS `Total Requests` = COUNT()`` and `"column": "Total Requests"`).
+10. **Format numbers with units** â€” Use the `format` property on metrics and y-axis columns to display proper units
+    instead of raw numbers. Types: `bytes`, `bits`, `number`, `percent`, `duration`, `custom`. Example:
+    `"format": { "type": "bytes", "decimals": 0 }`. See [Chart Types Reference](references/chart-types-reference.md) for
+    the full format table.
+
+### Schema Differences: Data View vs ES|QL
+
+| Aspect              | Data View                                             | ES\|QL                                            |
+| ------------------- | ----------------------------------------------------- | ------------------------------------------------- |
+| **Dataset**         | `{ type: 'data_view_reference', ref_id: '...' }`      | `{ type: 'esql', query: '...' }`                  |
+| **Metric chart**    | `metrics: [{ type: 'primary', operation: 'count' }]`  | `metrics: [{ type: 'primary', column: 'col' }]`   |
+| **XY columns**      | `{ operation: 'terms', fields: ['host'], limit: 10 }` | `{ column: 'host' }`                              |
+| **Static values**   | `{ operation: 'static_value', value: 100 }`           | Use `EVAL` in query (see below)                   |
+| **XY data_source**  | Inside each layer                                     | Inside each layer                                 |
+| **Tagcloud**        | `tag_by: { operation: 'terms', ... }`                 | `tag_by: { column: '...' }`                       |
+| **Datatable props** | `metrics`, `rows` arrays                              | `metrics`, `rows` arrays with `{ column: '...' }` |
+
+> **Key Pattern:** ES|QL uses `{ column: 'column_name' }` to reference columns from the query result. The aggregation
+> happens in the ES|QL query itself. Use `data_source` for all data source configuration.
+>
+> **Data source types:** Use `data_view_reference` (with `ref_id`) for saved data views, `data_view_spec` (with
+> `index_pattern`) for ad-hoc index patterns, and `esql` for ES|QL queries.
+
+### ES|QL: Time Bucketing
+
+Use `BUCKET(@timestamp, n, ?_tstart, ?_tend)` for time series charts. The numeric argument is the target number of
+buckets. Kibana injects `?_tstart`/`?_tend` automatically. Do **not** reassign the result â€” use the full expression
+`BUCKET(@timestamp, 75, ?_tstart, ?_tend)` as both the `BY` clause and the `column` reference. Set `"label"` to provide
+a friendly display name:
+
+```json
+"x": { "column": "BUCKET(@timestamp, 75, ?_tstart, ?_tend)", "label": "@timestamp" }
+```
+
+**Important:** To get a proper multilevel time axis (e.g., "9th / April 2026 / 10th") instead of raw timestamp labels,
+you must set `"scale": "temporal"` on the x-axis:
+
+```json
+"axis": {
+  "x": { "scale": "temporal", "domain": { "type": "fit", "rounding": false } }
+}
+```
+
+Without `"scale": "temporal"`, Kibana treats the bucket column as categorical text and renders unsorted, verbose
+timestamp strings.
+
+```esql
+FROM logs | WHERE @timestamp <= ?_tend AND @timestamp > ?_tstart | STATS count = COUNT(*) BY BUCKET(@timestamp, 75, ?_tstart, ?_tend)
+```
+
+> **Note:** `BUCKET(@timestamp, n, ?_tstart, ?_tend)` requires a `WHERE` clause with `?_tstart`/`?_tend` bounds (Kibana
+> injects these). Alternatively, use `BUCKET(@timestamp, 1 hour)` with a fixed duration â€” this does not require
+> parameters but won't auto-scale.
+
+### ES|QL: Extracting Date Parts
+
+Use `DATE_EXTRACT(part, date)` with ES|QL part names (not SQL keywords). The part string must be double-quoted. Common
+parts: `"hour_of_day"`, `"day_of_week"`, `"day_of_month"`, `"month_of_year"`, `"year"`, `"day_of_year"`.
+
+```esql
+FROM logs | STATS count = COUNT() BY hour = DATE_EXTRACT("hour_of_day", @timestamp), day = DATE_EXTRACT("day_of_week", @timestamp)
+```
+
+### ES|QL: Creating Static/Constant Values
+
+ES|QL does not support `static_value` operations. Instead, create constant columns using `EVAL`:
+
+```esql
+FROM logs | STATS count = COUNT() | EVAL max_value = 20000, goal = 15000
+```
+
+Then reference with `{ "column": "max_value" }`. For dynamic reference values, use aggregation functions like
+`PERCENTILE()` or `MAX()` in the query.
+
+## Design Principles
+
+The APIs follow these principles:
+
+1. **Minimal definitions** â€” Only required properties; defaults are injected
+2. **No implementation details** â€” No internal state or machine IDs
+3. **Flat structure** â€” Shallow nesting for easy diffing
+4. **Semantic names** â€” Clear, readable property names
+5. **Git-friendly** â€” Easy to track changes in version control
+6. **LLM-optimized** â€” Compact format suitable for one-shot generation

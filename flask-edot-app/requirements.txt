@@ -1,0 +1,2 @@
+﻿flask>=3.0
+elastic-opentelemetry==1.14.0
